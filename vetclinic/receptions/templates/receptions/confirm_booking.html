@@ -1,0 +1,102 @@
+{% extends "vetclinic/base.html" %}
+{% load static %}
+
+{% block title %}Подтверждение записи{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/confirm_booking.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="confirm-page">
+
+    <div class="confirm-card">
+
+        <h1>Подтверждение записи</h1>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="appointment-info">
+
+                <div class="info-row">
+                    <span class="info-label">Врач:</span>
+                    <span class="info-value">{{ slot.doctor }}</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Дата:</span>
+                    <span class="info-value">{{ slot.date }}</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Время:</span>
+                    <span class="info-value">{{ slot.start }}</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">ФИО клиента:</span>
+                    <span class="info-value">{{ client }}</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Телефон:</span>
+                    <span class="info-value">{{ client.phone_number }}</span>
+                </div>
+
+                <div class="info-row pet-row">
+
+                    <span class="info-label">Питомец:</span>
+
+                    {% if pet %}
+
+                        <span class="info-value">{{ pet }}</span>
+
+                        <input type="hidden"
+                               name="pet"
+                               value="{{ pet.id }}">
+
+                    {% else %}
+
+                        <select name="pet"
+                                class="pet-select"
+                                required>
+
+                            <option value="" selected disabled>
+                                Выберите питомца
+                            </option>
+
+                            {% for client_pet in client.pets.all %}
+                                <option value="{{ client_pet.id }}">
+                                    {{ client_pet.name }}
+                                </option>
+                            {% endfor %}
+
+                        </select>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <div class="confirm-actions">
+
+                <a href="{{ back_url }}" class="back-button">
+                    Назад
+                </a>
+
+                <button type="submit" class="confirm-button">
+                    Подтвердить запись
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

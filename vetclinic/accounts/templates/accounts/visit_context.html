@@ -1,0 +1,122 @@
+{% extends "vetclinic/base.html" %}
+{% load static %}
+
+{% block title %}Подробности визита{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/visit-context.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="visit-context-page">
+
+    <div class="visit-context-card">
+
+        <h1>Подробности визита</h1>
+
+        <div class="visit-main-info">
+
+            <div class="info-row">
+                <span class="info-label">Дата:</span>
+                <span class="info-value">
+                    {{ visit.slot.date|date:"d.m.Y" }}
+                </span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Время:</span>
+                <span class="info-value">
+                    {{ visit.slot.start|time:"H:i" }}
+                </span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Врач:</span>
+                <span class="info-value">
+                    {{ visit.slot.doctor }}
+                </span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Питомец:</span>
+                <span class="info-value">
+                    {{ visit.pet }}
+                </span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Статус:</span>
+                <span class="info-value status">
+                    {{ visit.get_status_display }}
+                </span>
+            </div>
+
+        </div>
+
+
+        {% if history %}
+
+            <div class="medical-info">
+
+                <h2>Информация о приёме</h2>
+
+                <div class="medical-section">
+
+                    <h3>Жалобы</h3>
+
+                    <p>
+                        {{ history.complaints|default:"Не указано" }}
+                    </p>
+
+                </div>
+
+                <div class="medical-section">
+
+                    <h3>Диагноз</h3>
+
+                    <p>
+                        {{ history.diagnosis|default:"Не указано" }}
+                    </p>
+
+                </div>
+
+                <div class="medical-section">
+
+                    <h3>Назначения</h3>
+
+                    <p>
+                        {{ history.prescription|default:"Не назначено" }}
+                    </p>
+
+                </div>
+
+                <div class="medical-section">
+
+                    <h3>Повторный приём</h3>
+
+                    <p>
+                        {{ history.next_visit|default:"Не требуется" }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        {% endif %}
+
+
+        <div class="visit-actions">
+
+            <a href="{{ back_url }}"
+               class="back-button">
+                ← Назад
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

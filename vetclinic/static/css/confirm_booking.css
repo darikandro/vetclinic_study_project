@@ -1,0 +1,149 @@
+.confirm-page {
+    max-width: 750px;
+    margin: 55px auto;
+    padding: 0 25px;
+}
+
+.confirm-card {
+    background: white;
+    border-radius: 22px;
+    padding: 35px 40px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+}
+
+.confirm-card h1 {
+    margin: 0 0 35px;
+    text-align: center;
+    color: #5b7d33;
+    font-size: 32px;
+}
+
+.appointment-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    color: #374a2e;
+    font-size: 16px;
+}
+
+.info-label {
+    color: #4e613f;
+    font-weight: bold;
+}
+
+.info-value {
+    color: #374a2e;
+}
+
+.pet-row {
+    align-items: center;
+}
+
+.pet-select {
+    min-width: 220px;
+    padding: 9px 12px;
+    border: 1px solid #d9e8c4;
+    border-radius: 10px;
+    background: white;
+    color: #374a2e;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.pet-select:focus {
+    outline: none;
+    border-color: #98c45d;
+    box-shadow: 0 0 8px rgba(152, 196, 93, .25);
+}
+
+.confirm-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.confirm-actions form {
+    margin: 0;
+}
+
+.back-button,
+.confirm-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    box-sizing: border-box;
+    padding: 12px 22px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.back-button {
+    background: #f0f3ec;
+    color: #68775b;
+}
+
+.back-button:hover {
+    background: #e4e9df;
+    transform: translateY(-2px);
+}
+
+.confirm-button {
+    border: none;
+    background: #d8f0a8;
+    color: #425d28;
+}
+
+.confirm-button:hover {
+    background: #c8e88d;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+
+    .confirm-page {
+        margin-top: 30px;
+    }
+
+    .confirm-card {
+        padding: 28px 22px;
+    }
+
+    .confirm-card h1 {
+        font-size: 27px;
+        margin-bottom: 30px;
+    }
+
+    .info-row {
+        flex-wrap: wrap;
+    }
+
+    .pet-select {
+        width: 100%;
+    }
+
+    .confirm-actions {
+        flex-direction: column-reverse;
+    }
+
+    .back-button,
+    .confirm-button {
+        width: 100%;
+    }
+
+    .confirm-actions form {
+        width: 100%;
+    }
+}

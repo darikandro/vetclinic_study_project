@@ -1,0 +1,606 @@
+.schedule-page {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 0 25px;
+}
+
+
+/* ===== Заголовок ===== */
+
+.schedule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.schedule-header h1 {
+    margin: 0;
+    color: #5b7d33;
+    font-size: 42px;
+}
+
+.schedule-header-actions {
+    display: flex;
+    gap: 12px;
+}
+.schedule-header h2 {
+    margin: 0;
+    color: #5b7d33;
+    font-size: 30px;
+}
+
+
+/* ===== Кнопки в заголовке ===== */
+
+.schedule-add-btn,
+.schedule-edit-btn {
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: bold;
+    transition: .2s;
+}
+
+.schedule-add-btn {
+    background: #d8f0a8;
+    color: #425d28;
+}
+
+.schedule-add-btn:hover {
+    background: #c8e88d;
+    transform: translateY(-2px);
+}
+
+.schedule-edit-btn {
+    background: #fff2b5;
+    color: #5f5b2d;
+}
+
+.schedule-edit-btn:hover {
+    background: #ffe995;
+    transform: translateY(-2px);
+}
+
+
+/* ===== Выбор врача ===== */
+
+.doctor-selection {
+    margin-bottom: 20px;
+}
+
+.doctor-selection > label {
+    display: block;
+    margin-bottom: 9px;
+    color: #4e613f;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.doctor-select {
+    position: relative;
+}
+
+.doctor-search {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 50px 14px 16px;
+    border: 1px solid #d9e8c4;
+    border-radius: 12px;
+    background: white;
+    color: #374a2e;
+    font-size: 16px;
+}
+
+.doctor-search::placeholder {
+    color: #9aa593;
+}
+
+.doctor-search:focus {
+    outline: none;
+    border-color: #98c45d;
+    box-shadow: 0 0 8px rgba(152, 196, 93, .25);
+}
+
+.doctor-select-arrow {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    color: #66854a;
+    font-size: 21px;
+    cursor: pointer;
+}
+
+.doctor-list {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    right: 0;
+    z-index: 20;
+    display: none;
+    max-height: 230px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #d9e8c4;
+    border-radius: 12px;
+    box-shadow: 0 7px 20px rgba(0, 0, 0, .10);
+}
+
+.doctor-list.show {
+    display: block;
+}
+
+.doctor-option {
+    padding: 13px 16px;
+    color: #4e613f;
+    cursor: pointer;
+    transition: .15s;
+}
+
+.doctor-option:hover {
+    background: #eef9d4;
+}
+
+
+/* ===== Ближайшее время ===== */
+
+.nearest-time {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 20px;
+    color: #68775b;
+    font-size: 15px;
+}
+
+.nearest-label {
+    font-weight: bold;
+    color: #4e613f;
+}
+
+.nearest-value {
+    color: #668b3c;
+    font-weight: bold;
+}
+
+
+/* ===== Календарь ===== */
+
+.schedule-calendar {
+    background: white;
+    border-radius: 22px;
+    padding: 30px 35px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+}
+
+
+/* ===== Переключение месяца ===== */
+
+.calendar-month {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+.calendar-month h2 {
+    min-width: 220px;
+    margin: 0;
+    text-align: center;
+    color: #5b7d33;
+    font-size: 25px;
+}
+
+.calendar-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    background: #eef9d4;
+    color: #5b7d33;
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.calendar-arrow:hover {
+    background: #d8f0a8;
+    transform: scale(1.05);
+}
+
+
+/* ===== Дни недели ===== */
+
+.week-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.week-days span {
+    text-align: center;
+    color: #87957a;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+/* ===== Числа календаря ===== */
+
+.calendar-dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.calendar-date,
+.calendar-empty {
+    height: 48px;
+}
+.calendar-date {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    margin: auto;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #4e613f;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.calendar-date:hover {
+    background: #eef9d4;
+    color: #5b7d33;
+}
+
+
+/* ===== Дни с расписанием для администратора ===== */
+
+.calendar-date.has-schedule {
+    background: #fff2b5;
+    color: #5f5b2d;
+}
+
+.calendar-date.has-schedule:hover {
+    background: #ffe995;
+}
+
+
+/* ===== Дни для обычного пользователя ===== */
+
+/* Рабочий день, но свободных слотов нет */
+
+.calendar-date.no-available-slots {
+    background: #e8c4b8;
+    color: #766d48;
+}
+
+.calendar-date.no-available-slots:hover {
+    background: #e8c4b8;
+}
+
+
+/* Рабочий день, есть свободные слоты */
+
+.calendar-date.has-available-slots {
+    background: #fff2b5;
+    color: #5f5b2d;
+}
+
+.calendar-date.has-available-slots:hover {
+    background: #ffe995;
+}
+
+
+/* ===== Выбранный день ===== */
+
+.calendar-date.selected {
+    background: #d8f0a8;
+    color: #425d28;
+    font-weight: bold;
+    box-shadow: 0 3px 9px rgba(152, 196, 93, .25);
+}
+
+
+/* Если выбран день, у которого было расписание */
+
+.calendar-date.has-schedule.selected,
+.calendar-date.no-available-slots.selected,
+.calendar-date.has-available-slots.selected {
+    background: #d8f0a8;
+}
+
+
+/* ===== Сегодня ===== */
+
+.calendar-date.today {
+    border: 2px solid #d5c875;
+}
+
+.calendar-date.today.selected {
+    border: 2px solid #98c45d;
+}
+
+
+/* ===== Дни соседних месяцев ===== */
+
+.calendar-date.other-month {
+    color: #c5cec0;
+    cursor: default;
+}
+
+.calendar-date.other-month:hover {
+    background: transparent;
+    color: #c5cec0;
+}
+
+.date-number {
+    line-height: 1;
+}
+
+
+/* ===== Расписание выбранного дня ===== */
+
+.day-slots {
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 1px solid #edf3e6;
+}
+
+.day-slots-header {
+    margin-bottom: 20px;
+}
+
+.day-slots-header h3 {
+    margin: 0 0 5px;
+    color: #4e6a33;
+    font-size: 23px;
+}
+
+.day-slots-header p {
+    margin: 0;
+    color: #87957a;
+    font-size: 14px;
+}
+
+.slots-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+
+/* ===== Временные слоты ===== */
+
+.time-slot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 78px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    transition: .2s;
+}
+
+.time-slot.available {
+    background: #eef9d4;
+    color: #4e6a33;
+}
+
+.time-slot.available:hover {
+    background: #d8f0a8;
+    transform: translateY(-2px);
+}
+
+.time-slot.unavailable {
+    background: #f6e9e9;
+    color: #866b6b;
+}
+
+.time-slot.unavailable:hover {
+    background: #efdcdc;
+    transform: translateY(-2px);
+}
+
+.slot-dot {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+
+.time-slot.available .slot-dot {
+    background: #76ad3c;
+}
+
+.time-slot.unavailable .slot-dot {
+    background: #c87878;
+}
+
+
+/* ===== Нет расписания ===== */
+
+.no-slots {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 25px;
+    border-radius: 14px;
+    background: #f9fff8;
+    text-align: center;
+    color: #718065;
+    font-size: 15px;
+}
+
+.choose-date-message {
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 1px solid #edf3e6;
+    text-align: center;
+    color: #718065;
+}
+
+
+/* ===== Легенда ===== */
+
+.schedule-legend {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 18px;
+    color: #718065;
+    font-size: 14px;
+}
+
+.schedule-legend span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.legend-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+
+/* Доступный слот */
+
+.legend-dot.available {
+    background: #76ad3c;
+}
+
+
+/* Недоступный слот */
+
+.legend-dot.unavailable {
+    background: #c87878;
+}
+
+
+/* День с расписанием для администратора */
+.legend-dot.working-day {
+    background: #fff2b5;
+}
+
+
+/* День для пользователя: рабочий, но свободных слотов нет */
+
+.legend-dot.no-available {
+    background: #e8c4b8;
+}
+
+
+/* День для пользователя: есть свободные слоты */
+
+.legend-dot.has-available {
+    background: #fff2b5;
+}
+
+
+/* ===== Врач не выбран ===== */
+
+.no-doctor-selected {
+    margin-top: 25px;
+    padding: 45px 30px;
+    background: white;
+    border-radius: 22px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+    text-align: center;
+    color: #718065;
+}
+
+.no-doctor-icon {
+    margin-bottom: 15px;
+    font-size: 38px;
+}
+
+
+/* ===== Адаптация ===== */
+
+@media (max-width: 750px) {
+
+    .schedule-page {
+        margin-top: 30px;
+    }
+
+    .schedule-header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .schedule-header h1 {
+        font-size: 34px;
+    }
+
+    .schedule-header-actions {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .schedule-calendar {
+        padding: 25px 18px;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .schedule-header-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .schedule-add-btn,
+    .schedule-edit-btn {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    .calendar-month {
+        gap: 10px;
+    }
+
+    .calendar-month h2 {
+        min-width: 160px;
+        font-size: 21px;
+    }
+
+    .calendar-date {
+        width: 40px;
+        height: 40px;
+    }
+
+    .week-days,
+    .calendar-dates {
+        gap: 3px;
+    }
+
+    .nearest-time {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

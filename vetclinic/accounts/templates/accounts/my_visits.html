@@ -1,0 +1,295 @@
+{% extends "vetclinic/base.html" %}
+{% load static %}
+
+{% block title %}Мои записи{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/my_visits.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="appointments-page">
+
+    <h1>Мои записи</h1>
+
+
+    <!-- Переключатель вкладок -->
+
+    <div class="appointments-tabs">
+
+        <button type="button"
+                class="appointment-tab active"
+                onclick="showTab('upcoming', this)">
+            Предстоящие записи
+        </button>
+
+        <button type="button"
+                class="appointment-tab"
+                onclick="showTab('history', this)">
+            История посещений
+        </button>
+
+    </div>
+
+
+    <!-- Предстоящие записи -->
+
+    <div id="upcoming-tab"
+         class="appointment-tab-content active">
+
+        <div class="appointments-section">
+
+            {% if future_visits %}
+
+                <div class="upcoming-list">
+
+                    {% for visit in future_visits %}
+
+                        <div class="upcoming-card">
+
+                            <div class="upcoming-date">
+
+                                <span class="date-day">
+                                    {{ visit.slot.date|date:"d" }}
+                                </span>
+
+                                <span class="date-month">
+                                    {{ visit.slot.date|date:"E" }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="upcoming-info">
+
+                                <div class="upcoming-row">
+                                    <span class="upcoming-label">
+                                        Время:
+                                    </span>
+
+                                    <span>
+                                        {{ visit.slot.start|time:"H:i" }}
+                                    </span>
+                                </div>
+
+
+                                <div class="upcoming-row">
+                                    <span class="upcoming-label">
+                                        Врач:
+                                    </span>
+
+                                    <span>
+                                        {{ visit.slot.doctor }}
+                                    </span>
+                                </div>
+
+
+                                <div class="upcoming-row">
+                                    <span class="upcoming-label">
+                                        Питомец:
+                                    </span>
+
+                                    <span>
+                                        {{ visit.pet }}
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-appointments">
+
+                    <div class="empty-icon">
+                        🐾
+                    </div>
+
+                    <p>
+                        У вас пока нет предстоящих записей.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- История посещений -->
+
+    <div id="history-tab"
+         class="appointment-tab-content">
+
+        <div class="appointments-section">
+
+
+            <!-- Фильтр по питомцу -->
+
+            <form method="get"
+                  class="history-filter">
+
+                <input type="hidden"
+                       name="tab"
+                       value="history">
+
+                <label for="pet-filter">
+                    Питомец:
+                </label>
+
+                <select name="pet"
+                        id="pet-filter"
+                        onchange="this.form.submit()">
+
+                    <option value="">
+                        Все питомцы
+                    </option>
+
+                    {% for pet in client.pets.all %}
+                    <option value="{{ pet.id }}"
+                            {% if selected_pet_id == pet.id|stringformat:"s" %}
+                                selected
+                            {% endif %}>
+                            {{ pet.name }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </form>
+
+
+            <!-- Таблица истории -->
+
+            {% if visit_history %}
+
+                <div class="history-table-wrapper">
+
+                    <table class="history-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Дата</th>
+                                <th>Врач</th>
+                                <th>Питомец</th>
+                                <th>Причина визита</th>
+                                <th></th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {% for visit in visit_history %}
+
+                                <tr>
+
+                                    <td>
+                                        {{ visit.visit.slot.date|date:"d.m.Y" }}
+                                    </td>
+
+
+                                    <td>
+                                        {{ visit.visit.slot.doctor }}
+                                    </td>
+
+
+                                    <td>
+                                        {{ visit.pet }}
+                                    </td>
+
+
+                                    <td class="conclusion-cell">
+                                        {{ visit.complaints|default:"Не указано" }}
+                                    </td>
+
+
+                                    <td class="history-action">
+
+                                        <a href="{% url 'accounts:visit_context' secure_id=user.secure_id.secure_id visit_id=visit.visit.id %}"
+                                            class="history-details-btn">
+                                            Подробнее
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-appointments">
+
+                    <div class="empty-icon">
+                        🐾
+                    </div>
+
+                    <p>
+                        История посещений пуста.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+const initialTab = "{{ request.GET.tab|default:'upcoming' }}";
+function showTab(tabName, button) {
+
+    document.querySelectorAll('.appointment-tab-content')
+        .forEach(function(tab) {
+            tab.classList.remove('active');
+        });
+
+    document.querySelectorAll('.appointment-tab')
+        .forEach(function(tabButton) {
+            tabButton.classList.remove('active');
+        });
+
+    document.getElementById(tabName + '-tab')
+        .classList.add('active');
+
+    button.classList.add('active');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    {% if request.GET.tab == 'history' %}
+        const historyButton = document.querySelector(
+            '.appointment-tab[onclick*="history"]'
+        );
+
+        if (historyButton) {
+            showTab('history', historyButton);
+        }
+    {% endif %}
+
+});
+</script>
+
+{% endblock %}

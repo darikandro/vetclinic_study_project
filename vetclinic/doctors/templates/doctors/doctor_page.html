@@ -1,0 +1,58 @@
+{% extends "vetclinic/base.html" %}
+{% load static %}
+
+{% block title %}
+{{ doctor.full_name }}
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/doctor_page.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="doctor-page">
+
+    <div class="doctor-header">
+
+        {% if doctor.photo %}
+            <img class="doctor-photo" src="{{ doctor.photo.url }}" alt="{{ doctor.full_name }}">
+        {% else %}
+            <img class="doctor-photo"
+                 src="{% static 'images/default_avatar_doctor.jpg' %}"
+                 alt="Фото отсутствует">
+        {% endif %}
+
+        <div class="doctor-main-info">
+
+            <h1>{{ doctor.full_name }}</h1>
+
+            <p class="specialty">
+                {{ doctor.specialty.all|join:", " }}
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="doctor-description">
+
+        <h2>О враче</h2>
+
+        <p>
+            {{ doctor.description|default:"Информация о специалисте скоро появится." }}
+        </p>
+
+    </div>
+
+    <div class="appointment">
+
+        <a href="{% url 'receptions:schedule' %}?doctor={{doctor.id}}" class="appointment-btn">
+            Записаться на прием
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

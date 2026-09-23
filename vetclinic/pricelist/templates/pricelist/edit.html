@@ -1,0 +1,25 @@
+{% extends "vetclinic/base.html" %}
+{% load static %}
+
+{% block title %}
+Изменение услуги
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pricelist.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="form-card">
+        <h2>Изменить услугу</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">
+                Сохранить
+            </button>
+        </form>
+    </div>
+
+{% endblock %}

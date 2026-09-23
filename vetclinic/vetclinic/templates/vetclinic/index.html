@@ -1,0 +1,40 @@
+{% extends "vetclinic/base.html" %}
+
+{% block title %}
+Главная
+{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+
+    <h1>Ветеринарная клиника "Доктор Кот"</h1>
+
+    <p>
+        Заботимся о здоровье ваших питомцев!
+    </p>
+
+    <div class="main-buttons">
+
+        <a href="{% url 'pricelist:list' %}" class="main-btn">
+            Услуги и цены
+        </a>
+
+        {% if request.user.is_superuser %}
+            <a href="{% url 'receptions:schedule' %}" class="main-btn accent">
+                Расписание врачей
+            </a>
+            <a href="{% url 'clients:list' %}" class="main-btn">
+                Список клиентов
+            </a>
+        {% else %}
+            <a href="{% url 'receptions:schedule' %}" class="main-btn accent">
+                Запись онлайн
+            </a>
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

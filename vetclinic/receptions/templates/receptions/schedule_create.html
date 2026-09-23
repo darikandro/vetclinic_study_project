@@ -1,0 +1,285 @@
+{% extends "vetclinic/base.html" %}
+{% load static %}
+
+{% block title %}Создание расписания{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/schedule_create.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="schedule-page">
+
+    <!-- Заголовок -->
+    <div class="schedule-title">
+        <h1>Создание расписания</h1>
+        <p>Задайте рабочее время врача на выбранную дату.</p>
+    </div>
+
+
+    <section class="schedule-card">
+
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- ============================= -->
+            <!-- Выбор врача -->
+            <!-- ============================= -->
+
+            <div class="schedule-field">
+                <label for="doctor-search">Врач</label>
+
+                <div class="doctor-select">
+                    <input type="text"
+                           id="doctor-search"
+                           class="doctor-search"
+                           placeholder="Начните вводить фамилию..."
+                           autocomplete="off">
+
+                    <input type="hidden"
+                           name="doctor"
+                           id="doctor-value">
+
+                    <button type="button"
+                            class="doctor-select-arrow"
+                            onclick="toggleDoctorList()">
+                        ▾
+                    </button>
+
+                    <div class="doctor-list" id="doctor-list">
+
+                        {% for doctor in doctors %}
+                            <div class="doctor-option"
+                                 data-value="{{ doctor.id }}"
+                                 data-name="{{ doctor.full_name }}"
+                                 onclick="selectDoctor(this)">
+
+                                <span class="doctor-option-name">
+                                    {{ doctor.full_name }}
+                                </span>
+
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ============================= -->
+            <!-- Выбор даты -->
+            <!-- ============================= -->
+
+            <div class="schedule-field">
+                <label for="schedule-date">Дата</label>
+
+                <input type="date"
+                       id="schedule-date"
+                       name="date"
+                       class="date-input"
+                       required>
+            </div>
+
+
+            <!-- ============================= -->
+            <!-- Рабочие интервалы -->
+            <!-- ============================= -->
+
+            <div class="intervals-section">
+
+                <div class="section-label">
+                    Время работы
+                </div>
+
+                <p class="section-description">
+                    Укажите рабочие интервалы врача. Каждый интервал
+                    будет разбит на получасовые слоты.
+                </p>
+
+
+                <div id="intervals">
+
+                    <!-- Первый интервал -->
+                    <div class="time-interval">
+
+                        <div class="time-field">
+                            <label>Начало</label>
+
+                            <input type="time"
+                                   name="start_time"
+                                   required>
+                        </div>
+
+                        <span class="time-separator">—</span>
+
+                        <div class="time-field">
+                            <label>Конец</label>
+
+                            <input type="time"
+                                   name="end_time"
+                                   required>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Добавить интервал -->
+                <button type="button"
+                        class="add-interval-btn"
+                        onclick="addInterval()">
+
+                    <span class="plus-icon">+</span>
+                    Добавить ещё один интервал
+                    </button>
+
+            </div>
+
+
+            <!-- ============================= -->
+            <!-- Кнопки -->
+            <!-- ============================= -->
+
+            <div class="schedule-actions">
+
+                <button type="submit"
+                        class="save-schedule-btn">
+                    Сохранить расписание
+                </button>
+
+                <a href="{% url 'receptions:schedule' %}"
+                   class="view-schedule-btn">
+                    Посмотреть текущее расписание
+                </a>
+
+            </div>
+
+        </form>
+
+    </section>
+
+</div>
+
+
+<script>
+
+/* ==========================================
+   Выбор врача
+   ========================================== */
+
+const doctorSearch = document.getElementById('doctor-search');
+const doctorList = document.getElementById('doctor-list');
+const doctorValue = document.getElementById('doctor-value');
+
+
+function toggleDoctorList() {
+    doctorList.classList.toggle('show');
+    doctorSearch.focus();
+}
+
+
+function selectDoctor(option) {
+    doctorSearch.value = option.dataset.name;
+    doctorValue.value = option.dataset.value;
+
+    doctorList.classList.remove('show');
+}
+
+
+doctorSearch.addEventListener('focus', function() {
+    doctorList.classList.add('show');
+});
+
+
+doctorSearch.addEventListener('input', function() {
+
+    const searchText = this.value.toLowerCase().trim();
+    const options = document.querySelectorAll('.doctor-option');
+
+    doctorList.classList.add('show');
+
+    options.forEach(function(option) {
+
+        const doctorName = option.dataset.name.toLowerCase();
+
+        if (doctorName.includes(searchText)) {
+            option.style.display = 'block';
+        } else {
+            option.style.display = 'none';
+        }
+
+    });
+
+});
+
+
+/* Закрываем список при клике вне него */
+
+document.addEventListener('click', function(event) {
+
+    const doctorSelect = document.querySelector('.doctor-select');
+
+    if (!doctorSelect.contains(event.target)) {
+        doctorList.classList.remove('show');
+    }
+
+});
+
+
+/* ==========================================
+   Добавление рабочего интервала
+   ========================================== */
+
+function addInterval() {
+
+    const intervals = document.getElementById('intervals');
+
+    const interval = document.createElement('div');
+
+    interval.className = 'time-interval';
+
+    interval.innerHTML = `
+        <div class="time-field">
+            <label>Начало</label>
+
+            <input type="time"
+                   name="start_time"
+                   required>
+        </div>
+
+        <span class="time-separator">—</span>
+
+        <div class="time-field">
+            <label>Конец</label>
+
+            <input type="time"
+                   name="end_time"
+                   required>
+        </div>
+
+        <button type="button"
+                class="remove-interval-btn"
+                onclick="removeInterval(this)"
+                title="Удалить интервал">
+            ×
+        </button>
+    `;
+
+    intervals.appendChild(interval);
+}
+
+
+/* ==========================================
+   Удаление интервала
+   ========================================== */
+
+function removeInterval(button) {
+    button.parentElement.remove();
+}
+
+</script>
+
+{% endblock %}
+                 

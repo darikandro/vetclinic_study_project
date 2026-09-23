@@ -1,0 +1,183 @@
+.pet-page {
+    max-width: 800px;
+    margin: 55px auto;
+    padding: 0 25px;
+}
+
+.pet-card {
+    background: white;
+    border-radius: 22px;
+    padding: 35px 40px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+}
+
+.pet-card h1 {
+    margin: 0 0 35px;
+    text-align: center;
+    color: #5b7d33;
+    font-size: 32px;
+}
+
+.pet-main-info {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+/* Фото */
+
+.pet-photo-container {
+    width: 180px;
+    height: 180px;
+    flex: 0 0 180px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #eef6e2;
+}
+
+.pet-photo {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Информация */
+
+.pet-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.info-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 17px;
+    color: #374a2e;
+    font-size: 16px;
+}
+
+.info-row:last-child {
+    margin-bottom: 0;
+}
+
+.info-label {
+    color: #4e613f;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.info-value {
+    color: #374a2e;
+}
+
+/* Кнопки */
+
+.pet-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid #edf3e6;
+}
+
+.pet-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+    padding: 12px 22px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.appointment-button {
+    background: #d8f0a8;
+    color: #425d28;
+}
+
+.appointment-button:hover {
+    background: #c8e88d;
+    transform: translateY(-2px);
+}
+
+.history-button {
+    background: #fff2b5;
+    color: #5f5b2d;
+}
+
+.history-button:hover {
+    background: #ffe995;
+    transform: translateY(-2px);
+}
+
+/* Назад */
+
+.back-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 12px;
+    background: #f0f3ec;
+    color: #68775b;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.back-button:hover {
+    background: #e4e9df;
+    transform: translateY(-2px);
+}
+
+/* Адаптация */
+
+@media (max-width: 650px) {
+
+    .pet-page {
+        margin-top: 30px;
+    }
+
+    .pet-card {
+        padding: 28px 22px;
+    }
+
+    .pet-card h1 {
+        font-size: 27px;
+        margin-bottom: 30px;
+    }
+
+    .pet-main-info {
+        flex-direction: column;
+        gap: 25px;
+        align-items: center;
+    }
+
+    .pet-info {
+        width: 100%;
+    }
+
+    .info-row {
+        flex-wrap: wrap;
+    }
+
+    .pet-actions {
+        flex-direction: column;
+    }
+
+    .pet-button {
+        width: 100%;
+    }
+}

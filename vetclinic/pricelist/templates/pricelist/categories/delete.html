@@ -1,0 +1,39 @@
+{% extends "vetclinic/base.html" %}
+{% load static %}
+
+{% block title %}
+Удаление категории услуг
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pricelist.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="form-card">
+        <h2>Удалить категорию услуг</h2>
+
+        <div class="table-container">
+        <table class="price-table">
+            <thead>
+                <tr>
+                    <th>Категория</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ object.name }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <form method="post">
+            {% csrf_token %}
+            <button type="submit">
+                Удалить
+            </button>
+    </form>
+
+{% endblock %}

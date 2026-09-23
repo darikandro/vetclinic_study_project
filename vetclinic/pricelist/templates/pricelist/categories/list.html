@@ -1,0 +1,44 @@
+{% extends "vetclinic/base.html" %}
+{% load static %}
+
+{% block title %}
+Услуги и цены
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pricelist.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="services-page">
+    <h1>Категории услуг</h1>
+    <div class="admin-service-actions">
+        <a href='create' class="admin-service-btn category-btn">
+            Добавить новую категорию
+        </a>
+    </div>
+    <div class="table-container">
+        <table class="price-table">
+            <thead>
+                <tr>
+                    <th>Категория</th>>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categories %}
+                <tr>
+                    <td>{{ category.name }}</td>
+                    <td class="service-actions">
+                        <a href="{% url 'pricelist:category_update' category.pk %}" class="service-edit-btn">Изменить</a>
+                        <a href="{% url 'pricelist:category_delete' category.pk %}" class="service-delete-btn">Удалить</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

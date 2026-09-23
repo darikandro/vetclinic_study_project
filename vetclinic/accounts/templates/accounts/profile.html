@@ -1,0 +1,472 @@
+{% extends "vetclinic/base.html" %}
+{% load static %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="profile-page">
+
+    {% if not user.client_profile %}
+
+        <!-- ================================================= -->
+        <!-- Новый пользователь, клиент еще не найден -->
+        <!-- ================================================= -->
+
+        {% if not search_performed %}
+
+    <!-- ================================================= -->
+    <!-- Выбор действия -->
+    <!-- ================================================= -->
+
+    <section class="welcome-section">
+        <div class="welcome-icon">🐾</div>
+
+        <h1>Добро пожаловать!</h1>
+
+        <p>
+            Давайте немного познакомимся.<br>
+            Вы уже обращались в нашу клинику?
+        </p>
+
+        <div class="client-choice">
+
+            <button type="button"
+                    class="choice-card"
+                    onclick="showExistingClient()">
+
+                <div class="choice-icon">🐱</div>
+
+                <h2>Да, я уже клиент</h2>
+
+                <p>
+                    Найти мою карточку в базе клиники
+                </p>
+
+            </button>
+
+
+            <button type="button"
+                    class="choice-card"
+                    onclick="showNewClient()">
+
+                <div class="choice-icon">🌿</div>
+
+                <h2>Нет, я впервые</h2>
+
+                <p>
+                    Создать новую карточку клиента
+                </p>
+
+            </button>
+
+        </div>
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- Поиск существующего клиента -->
+    <!-- ================================================= -->
+
+    <section id="existing-client"
+             class="profile-card onboarding-form"
+             style="display:none;">
+
+        <button type="button"
+                class="back-choice"
+                onclick="showChoices()">
+            ← Назад
+        </button>
+
+        <h2>Найти мою карточку</h2>
+
+        <p class="form-description">
+            Введите данные, по которым мы сможем найти вас
+            в базе клиники.
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-field">
+                {{ search_form.as_p }}
+            </div>
+
+            {{ search_form.errors }}
+
+            <button type="submit"
+                    name="search_submit"
+                    class="profile-main-btn">
+                Найти меня
+            </button>
+        </form>
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- Создание нового клиента -->
+    <!-- ================================================= -->
+
+    <section id="new-client"
+             class="profile-card onboarding-form"
+             style="display:none;">
+
+        <button type="button"
+                class="back-choice"
+                onclick="showChoices()">
+            ← Назад
+        </button>
+
+        <h2>Расскажите немного о себе</h2>
+
+        <p class="form-description">
+            Заполните данные, чтобы создать вашу карточку
+            клиента в нашей клинике.
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-field">
+                {{ creation_form.as_p }}
+            </div>
+
+            <button type="submit"
+                    class="profile-main-btn"
+                    name="create_client">
+                Создать профиль
+            </button>
+        </form>
+
+    </section>
+
+{% else %}
+
+    <!-- ================================================= -->
+    <!-- Результат поиска клиента -->
+    <!-- ================================================= -->
+
+    <section class="found-client" id="found-client">
+
+        {% if found_client %}
+
+            <h2>Найдена похожая карточка клиента</h2>
+
+            <div class="found-client-info">
+
+                <p>
+                    <strong>ФИО:</strong>
+                    {{ found_client }}
+                </p>
+
+                <p>
+                    <strong>Телефон:</strong>
+                    {{ found_client.phone_number }}
+                </p>
+
+                <div class="found-pets">
+                    <strong>Питомцы:</strong>
+                    <div class="found-pet-list">
+                        {% for pet in found_client.pets.all %}
+                            <span class="found-pet">
+                                {{ pet.name }}
+                                <small>{{ pet.get_type_display }}</small>
+                            </span>
+                        {% empty %}
+                            <span class="no-found-pets">
+                                Питомцы не указаны
+                            </span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+
+            <form method="post" class="bind-client-form">
+                {% csrf_token %}
+
+                <input type="hidden"
+                       name="client_id"
+                       value="{{ found_client.id }}">
+
+                <p class="confirm-text">
+                    Это ваша карточка?
+                </p>
+
+                <button type="submit"
+                        name="confirm_bind"
+                        class="bind-button">
+                    Да, это я!
+                </button>
+            </form>
+
+        {% else %}
+
+            <div class="not-found-client">
+
+                <div class="not-found-icon">🔎</div>
+
+                <h2>Клиент не найден</h2>
+
+                <p>
+                    Клиент с такими данными не найден.
+                    Проверьте правильность введенной информации.
+                </p>
+
+                <p>
+                    Если вы у нас еще не были, вы можете
+                    <a href="#"
+                       onclick="showNewClient(); return false;">
+                        создать новую карточку клиента
+                    </a>.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+{% endif %}
+
+        <!-- ================================================= -->
+        <!-- Создание нового клиента -->
+        <!-- ================================================= -->
+
+        <section id="new-client"
+                 class="profile-card onboarding-form"
+                 style="display:none;">
+                 <button type="button" class="back-choice" onclick="showChoices()">← Назад</button>
+
+            <h2>Расскажите немного о себе</h2>
+
+            <p class="form-description">
+                Заполните данные, чтобы создать вашу карточку
+                клиента в нашей клинике.
+            </p>
+
+
+            <form method="post"
+                  action="#">
+
+                {% csrf_token %}
+
+                    <div class="form-field">
+                        {{ creation_form.as_p }}
+                    </div>
+
+                <button type="submit"
+                        class="profile-main-btn"
+                        name="create_client">
+                    Создать профиль
+                </button>
+
+            </form>
+
+        </section>
+
+
+    {% else %}
+
+        <!-- ================================================= -->
+        <!-- Обычный личный кабинет существующего клиента -->
+        <!-- ================================================= -->
+
+        <div class="profile-title">
+
+            <div>
+                <h1>Личный кабинет</h1>
+
+                <p>
+                    Добро пожаловать, {{ client.name }}!
+                </p>
+            </div>
+
+            <a href="#"
+               class="edit-profile-btn">
+                Редактировать профиль
+            </a>
+
+            <a href="{% url 'accounts:visits' user.secure_id.secure_id%}"
+               class="add-pet-btn">
+                Мои записи
+            </a>
+
+        </div>
+
+
+        <!-- Информация о владельце -->
+
+        <section class="profile-card">
+
+            <h2>Информация о владельце</h2>
+
+            <div class="owner-info">
+
+                <div class="info-item">
+                    <span class="info-label">Фамилия</span>
+                    <span class="info-value">
+                        {{ client.surname }}
+                    </span>
+                </div>
+
+
+                <div class="info-item">
+                    <span class="info-label">Имя</span>
+                    <span class="info-value">
+                        {{ client.name }}
+                    </span>
+                </div>
+
+
+                <div class="info-item">
+                    <span class="info-label">Телефон</span>
+                    <span class="info-value">
+                        {{ client.phone_number }}
+                    </span>
+                </div>
+
+
+                <div class="info-item">
+                    <span class="info-label">Email</span>
+                    <span class="info-value">
+                        {{ client.email }}
+                    </span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Питомцы -->
+
+        <section class="pets-section">
+
+            <h2>Мои питомцы</h2>
+
+            <div class="pets-grid">
+                {% for pet in client.pets.all %}
+
+                    <div class="pet-card">
+
+                        <div class="pet-icon">
+                            {% if pet.photo %}
+                                <img class="pet-photo" src="{{ pet.photo.url }}" alt="{{ pet.name }}">
+                            {% else %}
+                                {% if pet.type == 'dog' %}
+                                    <img class="pet-photo" src="{% static 'images/default_avatar_dog.jpg' %}" alt="Фото отсутствует">
+                                {% else %}
+                                    <img class="pet-photo" src="{% static 'images/default_avatar_cat.jpg' %}" alt="Фото отсутствует">
+                                {% endif %}
+                            {% endif %}
+                        </div>
+
+                        <div class="pet-info">
+
+                            <h3>{{ pet.name }}</h3>
+
+                            <p>
+                                <span>Вид:</span>
+                                {{ pet.get_type_display }}
+                            </p>
+
+                            <p>
+                                <span>Пол:</span>
+                                {{ pet.get_gender_display }}
+                            </p>
+
+                            <p>
+                                <span>Порода:</span>
+                                {{ pet.breed }}
+                            </p>
+
+                            <p>
+                                <span>Дата рождения:</span>
+                                {{ pet.birth_date }}
+                            </p>
+
+                        </div>
+                    </div>
+
+                {% empty %}
+
+                    <div class="no-pets">
+
+                        <div class="no-pets-icon">🐾</div>
+
+                        <p>
+                            У вас пока нет добавленных питомцев.
+                        </p>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+            <div class="no-pets">
+                <p>
+                    <a href="{% url 'clients:pets:create' user.secure_id.secure_id %}" class="add-pet-btn">
+                        + Добавить питомца
+                    </a>
+                </p>
+            </div>
+
+        </section>
+
+
+        {% if pets %}
+            <div class="add-pet-container">
+
+                <a href="#" class="add-pet-btn">
+                    + Добавить питомца
+                </a>
+
+            </div>
+        {% endif %}
+
+    {% endif %}
+
+</div>
+
+
+<!-- Небольшой JS только для переключения экранов -->
+
+<script>
+
+    function showExistingClient() {
+        document.querySelector('.welcome-section').style.display = 'none';
+        document.getElementById('existing-client').style.display = 'block';
+        document.getElementById('new-client').style.display = 'none';
+        document.getElementById('found-client').style.display = 'none';
+    }
+
+    function showNewClient() {
+        document.querySelector('.welcome-section').style.display = 'none';
+        document.getElementById('existing-client').style.display = 'none';
+        document.getElementById('new-client').style.display = 'block';
+        document.getElementById('found-client').style.display = 'none';
+    }
+
+    function showChoices() {
+        document.querySelector('.welcome-section').style.display = 'block';
+        document.getElementById('existing-client').style.display = 'none';
+        document.getElementById('new-client').style.display = 'none';
+        document.getElementById('found-client').style.display = 'none';
+    }
+    
+    function showFoundClient() {
+        document.querySelector('.welcome-section').style.display = 'none';
+        document.getElementById('existing-client').style.display = 'none';
+        document.getElementById('new-client').style.display = 'none';
+        document.getElementById('found-client').style.display = 'block';
+    }
+
+</script>
+
+{% endblock %}

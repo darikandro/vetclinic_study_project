@@ -1,0 +1,312 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f9fff8;
+    color:#374a2e;
+}
+
+/* ---------- Шапка ---------- */
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 60px;
+
+    background:white;
+
+    box-shadow:0 3px 10px rgba(0,0,0,.08);
+}
+
+.logo-block {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo-block:visited {
+    color: inherit;
+}
+
+.logo-block:hover {
+    text-decoration: none;
+}
+
+.logo-block span{
+    font-size:24px;
+    font-weight:bold;
+    color:#628b35;
+}
+
+.logo-block:hover span{
+    color:#7cae44;
+}
+
+.logo-block img{
+    width:55px;
+    transition:.2s;
+}
+
+.logo-block:hover img{
+    transform:scale(1.05);
+}
+.desktop-menu{
+    display:flex;
+    gap:35px;
+}
+
+.desktop-menu a{
+    text-decoration:none;
+    color:#4b6337;
+    font-weight:600;
+}
+
+.desktop-menu a:hover{
+    color:#90b84d;
+}
+
+.header-buttons{
+    display:flex;
+    gap:15px;
+    align-items:center;
+}
+
+.cabinet-btn{
+    text-decoration:none;
+
+    background:#d8f0a8;
+
+    color:#456129;
+
+    padding:12px 22px;
+
+    border-radius:30px;
+
+    transition:.3s;
+}
+
+.cabinet-btn:hover{
+    background:#c7e98b;
+}
+
+.menu summary{
+    list-style:none;
+    cursor:pointer;
+    font-size:28px;
+}
+
+.dropdown{
+    position:absolute;
+    right:30px;
+
+    margin-top:10px;
+
+    background:white;
+
+    border-radius:15px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+
+    display:flex;
+    flex-direction:column;
+}
+
+.dropdown a{
+    padding:15px 25px;
+    text-decoration:none;
+    color:#4b6337;
+}
+
+.dropdown a:hover{
+    background:#eef9d4;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.username {
+    padding: 7px 12px;
+    border-radius: 12px;
+    background: #eef9d4;
+    color: #5b7d33;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.user-menu form {
+    margin: 0;
+}
+
+.logout-button {
+    padding: 7px 13px;
+    border: 1px solid #e2e9dc;
+    border-radius: 10px;
+    background: #f5f7f3;
+    color: #68775b;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.logout-button:hover {
+    background: #edf1e9;
+    color: #4e613f;
+    transform: translateY(-1px);
+}
+
+/* ---------- Главная ---------- */
+
+.hero{
+
+    min-height:80vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:40px;
+}
+
+.hero h1{
+
+    font-size:54px;
+
+    margin-bottom:25px;
+
+    color:#5b7d33;
+}
+
+.hero p{
+
+    font-size:22px;
+
+    margin-bottom:50px;
+}
+
+.main-buttons{
+
+    display:flex;
+
+    gap:25px;
+}
+
+.main-btn{
+
+    text-decoration:none;
+
+    padding:20px 42px;
+
+    border-radius:50px;
+
+    background:#e4f6b7;
+
+    color:#425d28;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    transition:.3s;
+}
+
+.main-btn:hover{
+
+    transform:translateY(-3px);
+
+    background:#d6f096;
+}
+
+.accent{
+
+    background:#fff2b5;
+}
+
+/* ---------- Сообщения Django ---------- */
+
+.messages-container {
+    position: fixed;
+    top: 100px;              
+    left: 50%;              
+    transform: translateX(-50%);
+    z-index: 9999; 
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 450px;       
+    padding: 0 20px;         
+}
+
+.profile-message {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 18px;
+    border-radius: 15px;
+    background: #eef9d4;
+    color: #4e6a33;
+    box-shadow: 0 4px 15px rgba(0,0,0,.12);
+    font-size: 16px;
+    /* transition обрабатывает прозрачность и сдвиг */
+    transition: opacity .3s ease, transform .3s ease; 
+}
+
+/* Разные цвета для ошибок и успеха (используем теги Django) */
+.profile-message.error {
+    background: #fde8e8;
+    color: #9b1c1c;
+}
+.profile-message.error .message-icon {
+    background: #f8b4b4;
+}
+
+.message-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #cce89b;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.message-text {
+    flex: 1;
+}
+
+.message-close {
+    border: none;
+    background: none;
+    color: inherit; /* берет цвет родителя */
+    font-size: 25px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 2px 5px;
+    transition: .2s;
+    opacity: 0.6;
+}
+
+.message-close:hover {
+    opacity: 1;
+    transform: scale(1.15);
+}

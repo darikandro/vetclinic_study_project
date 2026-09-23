@@ -1,0 +1,45 @@
+{% extends "vetclinic/base.html" %}
+{% load static %}
+
+{% block title %}
+Удаление клиента
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pricelist.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="form-card">
+        <h2>Удалить клиента</h2>
+
+        <div class="table-container">
+        <table class="price-table">
+            <thead>
+                <tr>
+                    <th>ФИО</th>
+                    <th>Номер телефона</th>
+                    <th>Эл. почта</th>
+                    <th>Аккаунт</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ client }}</td>
+                    <td>{{ client.phone_number }}</td>
+                    <td>{{ client.email }}</td>
+                    <td>{{ client.user_profile }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <form method="post">
+            {% csrf_token %}
+            <button type="submit">
+                Удалить
+            </button>
+    </form>
+
+{% endblock %}

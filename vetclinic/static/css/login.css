@@ -1,0 +1,128 @@
+.login-page {
+    max-width: 500px;
+    margin: 70px auto;
+    padding: 0 25px;
+}
+
+.login-card {
+    padding: 40px;
+    background: white;
+    border-radius: 22px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+}
+
+.login-card h2 {
+    margin: 0 0 30px;
+    text-align: center;
+    color: #5b7d33;
+    font-size: 30px;
+}
+
+
+/* Форма */
+
+.login-form p {
+    margin: 0 0 20px;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #4e613f;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.login-form input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border: 1px solid #d9e8c4;
+    border-radius: 11px;
+    background: #fff;
+    color: #374a2e;
+    font-size: 16px;
+    transition: .2s;
+}
+
+.login-form input:focus {
+    outline: none;
+    border-color: #98c45d;
+    box-shadow: 0 0 8px rgba(152, 196, 93, .25);
+}
+
+
+/* Ошибки Django */
+
+.login-form .errorlist {
+    margin: 6px 0 0;
+    padding: 0;
+    list-style: none;
+    color: #a66b6b;
+    font-size: 14px;
+}
+
+
+/* Кнопка входа */
+
+.login-button {
+    width: 100%;
+    margin-top: 5px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 12px;
+    background: #d8f0a8;
+    color: #425d28;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.login-button:hover {
+    background: #c8e88d;
+    transform: translateY(-2px);
+}
+
+
+/* Регистрация */
+
+.register-text {
+    margin: 25px 0 0;
+    padding-top: 22px;
+    border-top: 1px solid #edf3e6;
+    text-align: center;
+    color: #718065;
+    font-size: 15px;
+}
+
+.register-text a {
+    color: #668b3c;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.register-text a:hover {
+    color: #4e6a33;
+    text-decoration: underline;
+}
+
+
+/* Мобильная версия */
+
+@media (max-width: 600px) {
+
+    .login-page {
+        margin-top: 35px;
+        padding: 0 15px;
+    }
+
+    .login-card {
+        padding: 30px 22px;
+    }
+
+    .login-card h2 {
+        font-size: 27px;
+        margin-bottom: 25px;
+    }
+}

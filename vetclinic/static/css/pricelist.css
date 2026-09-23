@@ -1,0 +1,332 @@
+.services-page{
+
+    max-width:1100px;
+
+    margin:50px auto;
+
+    padding:0 25px;
+}
+
+.services-page h1{
+
+    text-align:center;
+
+    margin-bottom:40px;
+
+    color:#5b7d33;
+
+    font-size:42px;
+}
+
+/* ---------- Таблица ---------- */
+
+.table-container{
+
+    overflow-x:auto;
+}
+
+.price-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    background:white;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+}
+
+.price-table thead{
+
+    background:#dff4ba;
+}
+
+.price-table th{
+
+    padding:18px;
+
+    color:#48622f;
+
+    font-size:18px;
+}
+
+.price-table td{
+
+    padding:16px;
+
+    border-bottom:1px solid #eef3e4;
+
+    text-align:center;
+}
+
+.price-table tbody tr{
+
+    transition:.2s;
+}
+
+.price-table tbody tr:hover{
+
+    background:#f7fdea;
+}
+
+.price-table tbody tr:last-child td{
+
+    border-bottom:none;
+}
+
+/* ---------- Форма ---------- */
+
+.form-card{
+
+    margin:60px auto;
+
+    max-width:650px;
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:20px;
+
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+}
+
+.form-card h2{
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+    color:#5b7d33;
+}
+
+.form-card p{
+
+    margin-bottom:18px;
+}
+
+.form-card label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-weight:bold;
+
+    color:#4c6532;
+}
+
+.form-card input,
+.form-card textarea,
+.form-card select{
+
+    width:100%;
+
+    padding:12px;
+
+    border:1px solid #d9e8c4;
+
+    border-radius:12px;
+
+    font-size:16px;
+
+    background:#fcfff9;
+}
+
+.form-card input:focus,
+.form-card textarea:focus,
+.form-card select:focus{
+
+    outline:none;
+
+    border-color:#98c45d;
+
+    box-shadow:0 0 8px rgba(152,196,93,.25);
+}
+
+.form-card textarea{
+
+    resize:vertical;
+}
+
+.form-card button{
+
+    margin-top:15px;
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:30px;
+
+    background:#d8f0a8;
+
+    color:#425d28;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.form-card button:hover{
+
+    background:#c8e88d;
+
+    transform:translateY(-2px);
+}
+
+/* Кнопки администратора */
+
+.admin-service-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.admin-service-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    border-radius: 25px;
+    background: #d8f0a8;
+    color: #425d28;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.admin-service-btn:hover {
+    background: #c8e88d;
+    color: #425d28;
+    transform: translateY(-2px);
+}
+
+.admin-service-btn.category-btn {
+    background: #fff2b5;
+    color: #5f5b2d;
+}
+
+.admin-service-btn.category-btn:hover {
+    background: #ffe995;
+    color: #5f5b2d;
+}
+
+
+/* Фильтр категорий */
+
+.category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.filter-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background: #f0f3ec;
+    color: #68775b;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.filter-btn:hover {
+    background: #e4edd8;
+    color: #4e6a33;
+    transform: translateY(-1px);
+}
+
+.filter-btn.active {
+    background: #d8f0a8;
+    color: #425d28;
+}
+
+.filter-btn.active:hover {
+    background: #c8e88d;
+    color: #425d28;
+}
+
+
+/* Мобильная версия */
+
+@media (max-width: 600px) {
+
+    .admin-service-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .admin-service-btn {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .category-filters {
+        justify-content: flex-start;
+    }
+
+    .filter-btn {
+        padding: 9px 16px;
+    }
+}
+/* Кнопки действий администратора */
+
+.service-actions {
+    white-space: nowrap;
+    text-align: center;
+}
+
+.service-edit-btn,
+.service-delete-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px;
+    margin: 2px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.service-edit-btn {
+    background: #d8f0a8;
+    color: #425d28;
+}
+
+.service-edit-btn:hover {
+    background: #c8e88d;
+    color: #425d28;
+    transform: translateY(-1px);
+}
+
+.service-delete-btn {
+    background: #f6e9e9;
+    color: #866b6b;
+}
+
+.service-delete-btn:hover {
+    background: #efdcdc;
+    color: #765858;
+    transform: translateY(-1px);
+}

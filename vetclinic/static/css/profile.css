@@ -1,0 +1,505 @@
+/* ---------- Общая страница ---------- */
+
+.profile-page{
+    max-width:1000px;
+    margin:50px auto;
+    padding:0 25px;
+}
+
+/* ---------- Приветствие ---------- */
+
+.welcome-section{
+    text-align:center;
+    padding:35px 0 60px;
+}
+
+.welcome-icon{
+    width:80px;
+    height:80px;
+    margin:0 auto 20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:#eef9d4;
+    font-size:38px;
+}
+
+.welcome-section h1{
+    color:#5b7d33;
+    font-size:42px;
+    margin-bottom:15px;
+}
+
+.welcome-section > p{
+    color:#68775b;
+    font-size:19px;
+    margin-bottom:40px;
+}
+
+
+/* ---------- Выбор клиента ---------- */
+
+.client-choice{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(260px, 1fr));
+    gap:30px;
+    max-width:750px;
+    margin:0 auto;
+}
+
+.choice-card{
+    border:none;
+    background:white;
+    border-radius:22px;
+    padding:35px 25px;
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+    cursor:pointer;
+    transition:.25s;
+    color:#374a2e;
+}
+
+.choice-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
+
+.choice-icon{
+    width:65px;
+    height:65px;
+    margin:0 auto 18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:#eef9d4;
+    font-size:30px;
+}
+
+.choice-card h2{
+    color:#4e6a33;
+    font-size:22px;
+    margin-bottom:10px;
+}
+
+.choice-card p{
+    color:#718065;
+    font-size:15px;
+    line-height:1.5;
+}
+
+/* ---------- Карточка формы ---------- */
+
+.profile-card{
+    background:white;
+    border-radius:22px;
+    padding:35px;
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+    margin-bottom:40px;
+}
+
+.profile-card h2{
+    color:#5b7d33;
+    font-size:28px;
+    margin-bottom:12px;
+}
+
+.form-description{
+    color:#718065;
+    margin-bottom:30px;
+    line-height:1.5;
+}
+
+.onboarding-form{
+    max-width:650px;
+    margin:0 auto 50px;
+}
+
+.back-choice{
+    border:none;
+    background:none;
+    color:#66854a;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    padding:0;
+    margin-bottom:25px;
+}
+
+.back-choice:hover{
+    color:#8aae55;
+}
+
+/* ---------- Поля формы ---------- */
+
+.form-field{
+    margin-bottom:20px;
+}
+
+.form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.form-field label{
+    display:block;
+    margin-bottom:8px;
+    color:#4e613f;
+    font-weight:bold;
+}
+
+.form-field input{
+    width:100%;
+    padding:13px 15px;
+    border:1px solid #d9e8c4;
+    border-radius:12px;
+    background:#fcfff9;
+    color:#374a2e;
+    font-size:16px;
+}
+
+.form-field input:focus{
+    outline:none;
+    border-color:#98c45d;
+    box-shadow:0 0 8px rgba(152,196,93,.25);
+}
+
+.profile-main-btn{
+    display:block;
+    margin:30px auto 0;
+    border:none;
+    background:#d8f0a8;
+    color:#425d28;
+    padding:14px 30px;
+    border-radius:30px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.profile-main-btn:hover{
+    background:#c8e88d;
+    transform:translateY(-2px);
+}
+
+/* ---------- Заголовок личного кабинета ---------- */
+
+.profile-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:35px;
+}
+
+.profile-title h1{
+    color:#5b7d33;
+    font-size:42px;
+    margin-bottom:8px;
+}
+
+.profile-title p{
+    color:#718065;
+    font-size:17px;
+}
+
+.edit-profile-btn{
+    text-decoration:none;
+    background:#d8f0a8;
+    color:#425d28;
+    padding:13px 24px;
+    border-radius:30px;
+    font-weight:bold;
+    transition:.25s;
+}
+
+.edit-profile-btn:hover{
+    background:#c8e88d;
+    transform:translateY(-2px);
+}
+
+/* ---------- Информация владельца ---------- */
+
+.owner-info{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:20px;
+}
+
+.info-item{
+    background:#f7fdea;
+    border-radius:14px;
+    padding:17px 20px;
+}
+
+.info-label{
+    display:block;
+    color:#7a896d;
+    font-size:14px;
+    margin-bottom:6px;
+}
+
+.info-value{
+    color:#425536;
+    font-size:17px;
+}
+
+/* ---------- Питомцы ---------- */
+
+.pets-section {
+    margin-bottom: 30px;
+}
+
+.pets-section h2 {
+    color: #5b7d33;
+    font-size: 28px;
+    margin-bottom: 25px;
+}
+
+.pets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.pet-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    min-width: 0;
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+    transition: .25s;
+}
+
+.pet-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 9px 22px rgba(0, 0, 0, .11);
+}
+
+/* Фото питомца */
+
+.pet-icon {
+    width: 100px;
+    height: 100px;
+    flex: 0 0 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #eef6e2;
+}
+
+.pet-photo {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Информация о питомце */
+
+.pet-info {
+    min-width: 0;
+    flex: 1;
+}
+
+.pet-info h3 {
+    color: #4e6a33;
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.pet-info p {
+    color: #68775b;
+    margin-bottom: 6px;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+.pet-info p span {
+    color: #4e613f;
+    font-weight: bold;
+}
+
+/* ---------- Нет питомцев ---------- */
+
+.no-pets {
+    width: 100%;
+    box-sizing: border-box;
+    background: white;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+    text-align: center;
+    color: #68775b;
+}
+
+.no-pets-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #eef9d4;
+    font-size: 32px;
+}
+
+.no-pets p {
+    margin: 0 0 15px;
+    line-height: 1.5;
+}
+
+.no-pets p:last-child {
+    margin-bottom: 0;
+}
+/* ---------- Добавить питомца ---------- */
+
+.add-pet-container{
+    display:flex;
+    justify-content:center;
+    margin:35px 0 60px;
+}
+
+.add-pet-btn{
+    text-decoration:none;
+    background:#fff2b5;
+    color:#5f5b2d;
+    padding:15px 30px;
+    border-radius:30px;
+    font-size:17px;
+    font-weight:bold;
+    transition:.25s;
+}
+
+.add-pet-btn:hover{
+    background:#ffe995;
+    transform:translateY(-2px);
+}
+
+/* ---------- Телефон ---------- */
+
+@media (max-width:700px){
+    .profile-page{
+        margin-top:30px;
+    }
+
+    .client-choice{
+        grid-template-columns:1fr;
+    }
+
+    .profile-title{
+        flex-direction:column;
+        gap:20px;
+        text-align:center;
+    }
+
+    .profile-title h1{
+        font-size:34px;
+    }
+
+    .owner-info{
+        grid-template-columns:1fr;
+    }
+
+    .form-row{
+        grid-template-columns:1fr;
+        gap:0;
+    }
+
+    .profile-card{
+        padding:25px;
+    }
+}
+
+/* Найденная карточка клиента */
+
+.found-client {
+    max-width: 700px;
+    margin: 35px auto 0;
+    padding: 30px 35px;
+    background: white;
+    border-radius: 22px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+    color: #374a2e;
+}
+
+.found-client h2 {
+    margin: 0 0 25px;
+    text-align: center;
+    font-size: 26px;
+    color: #5b7d33;
+}
+
+.found-client-info {
+    padding: 20px 22px;
+    background: #f9fff8;
+    border-radius: 16px;
+}
+
+.found-client-info p {
+    margin: 0 0 14px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.found-client-info p:last-child {
+    margin-bottom: 0;
+}
+
+.found-client-info strong {
+    color: #4e6a33;
+}
+
+.pet-list {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.pet-name {
+    display: inline-block;
+    padding: 6px 11px;
+    background: #eef9d4;
+    border-radius: 10px;
+    color: #5b7d33;
+    font-size: 15px;
+}
+
+.pet-name small {
+    color: #718065;
+}
+
+.bind-client-form {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.confirm-text {
+    margin-bottom: 15px;
+    color: #4e6a33;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.bind-button {
+    border: none;
+    padding: 12px 28px;
+    background: #d8f0a8;
+    color: #4e6a33;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.bind-button:hover {
+    background: #c7e98b;
+    transform: translateY(-2px);
+}

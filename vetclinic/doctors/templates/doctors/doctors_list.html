@@ -1,0 +1,51 @@
+{% extends "vetclinic/base.html" %}
+{% load static %}
+
+{% block title %}
+Врачи
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/doctors.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="doctors-page">
+
+    <h1>Наши специалисты</h1>
+
+    <div class="doctor-grid">
+
+        {% for doctor in doctors_list %}
+
+        <a href="{% url 'doctors:doctor_page' doctor.id %}" class="doctor-card">
+
+            {% if doctor.photo %}
+                <img class="doctor-photo" src="{{ doctor.photo.url }}" alt="{{ doctor.surname }}">
+            {% else %}
+                <img class="doctor-photo" src="{% static 'images/default_avatar_doctor.jpg' %}" alt="Фото отсутствует">
+            {% endif %}
+
+            <div class="doctor-info">
+
+                {% if doctor.patronymic %}
+                    <h2>{{ doctor.surname }}<br>{{ doctor.name }} {{ doctor.patronymic }}</h2>
+                {% else %}
+                    <h2>{{ doctor.surname }}<br>{{ doctor.name }}</h2>
+                {% endif %}
+
+                <p class="specialty">
+                    {{ doctor.specialty.all|join:", " }}
+                </p>
+
+            </div>
+        </a>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

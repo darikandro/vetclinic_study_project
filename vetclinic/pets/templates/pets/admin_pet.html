@@ -1,0 +1,91 @@
+{% extends "vetclinic/base.html" %}
+{% load static %}
+
+{% block title %}Питомец{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_pet.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="pet-page">
+
+    <div class="pet-card">
+
+        <h1>Информация о питомце</h1>
+
+        <div class="pet-main-info">
+
+            <div class="pet-photo-container">
+                {% if pet.photo %}
+                    <img src="{{ pet.photo.url }}"
+                         alt="{{ pet.name }}"
+                         class="pet-photo">
+                {% else %}
+                    {% if pet.type == 'dog' %}
+                        <img src="{% static 'images/default_avatar_dog.jpg' %}"
+                             alt="Фото отсутствует"
+                             class="pet-photo">
+                    {% else %}
+                        <img src="{% static 'images/default_avatar_cat.jpg' %}"
+                             alt="Фото отсутствует"
+                             class="pet-photo">
+                    {% endif %}
+                {% endif %}
+            </div>
+
+            <div class="pet-info">
+
+                <div class="info-row">
+                    <span class="info-label">Имя:</span>
+                    <span class="info-value">{{ pet.name }}</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Вид:</span>
+                    <span class="info-value">{{ pet.get_type_display }}</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Дата рождения:</span>
+                    <span class="info-value">{{ pet.birth_date }}</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Хозяин:</span>
+                    <span class="info-value">{{ client }}</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="pet-actions">
+            {% if slot_id and Slot_id != 'None' %}
+                <a href="{% url 'receptions:confirm_booking' %}?slot_id={{ slot_id }}&client_id={{ client.id }}&pet_id={{ pet.id }}" class="pet-button appointment-button">
+                    Записать на прием
+                </a>
+            {% else %}
+                <a href="{% url 'receptions:schedule' %}?client_id={{ client.id }}&pet_id={{ pet.id }}" class="pet-button appointment-button">
+                    Записать на прием
+                </a>
+            {% endif %}
+
+            <a href="#" class="pet-button history-button">
+                История посещений
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="back-container">
+        <a href="{% url 'clients:list' %}" class="back-button">
+            ← Назад
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

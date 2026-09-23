@@ -1,0 +1,437 @@
+/* ==========================================
+   Общая страница
+   ========================================== */
+
+.schedule-page {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 0 25px;
+}
+
+
+/* ==========================================
+   Заголовок
+   ========================================== */
+
+.schedule-title {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.schedule-title h1 {
+    color: #5b7d33;
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.schedule-title p {
+    color: #718065;
+    font-size: 17px;
+}
+
+
+/* ==========================================
+   Основная карточка
+   ========================================== */
+
+.schedule-card {
+    background: white;
+    border-radius: 22px;
+    padding: 40px;
+
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+}
+
+
+/* ==========================================
+   Поля
+   ========================================== */
+
+.schedule-field {
+    margin-bottom: 30px;
+}
+
+.schedule-field > label,
+.section-label {
+    display: block;
+    margin-bottom: 10px;
+
+    color: #4e613f;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+
+/* ==========================================
+   Выбор врача
+   ========================================== */
+
+.doctor-select {
+    position: relative;
+}
+
+.doctor-search {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 14px 50px 14px 16px;
+
+    border: 1px solid #d9e8c4;
+    border-radius: 12px;
+
+    background: #fcfff9;
+    color: #374a2e;
+
+    font-size: 16px;
+}
+
+.doctor-search::placeholder {
+    color: #9aa593;
+}
+
+.doctor-search:focus {
+    outline: none;
+    border-color: #98c45d;
+
+    box-shadow: 0 0 8px rgba(152, 196, 93, .25);
+}
+
+.doctor-select-arrow {
+    position: absolute;
+
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    border: none;
+    background: none;
+
+    color: #66854a;
+    font-size: 22px;
+
+    cursor: pointer;
+}
+
+
+/* Список врачей */
+
+.doctor-list {
+    position: absolute;
+
+    top: calc(100% + 5px);
+    left: 0;
+    right: 0;
+
+    z-index: 10;
+
+    display: none;
+
+    max-height: 220px;
+    overflow-y: auto;
+
+    background: white;
+
+    border: 1px solid #d9e8c4;
+    border-radius: 12px;
+
+    box-shadow: 0 7px 20px rgba(0, 0, 0, .10);
+}
+
+.doctor-list.show {
+    display: block;
+}
+
+.doctor-option {
+    padding: 13px 16px;
+
+    color: #4e613f;
+
+    cursor: pointer;
+
+    transition: .15s;
+}
+
+.doctor-option:hover {
+    background: #eef9d4;
+}
+
+.doctor-option-name {
+    font-size: 16px;
+}
+
+
+/* ==========================================
+   Дата
+   ========================================== */
+
+.date-input {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 13px 15px;
+
+    border: 1px solid #d9e8c4;
+    border-radius: 12px;
+
+    background: #fcfff9;
+    color: #374a2e;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+.date-input:focus {
+    outline: none;
+
+    border-color: #98c45d;
+
+    box-shadow: 0 0 8px rgba(152, 196, 93, .25);
+}
+
+
+/* ==========================================
+   Интервалы
+   ========================================== */
+
+.intervals-section {
+    margin-top: 10px;
+}
+
+.section-label {
+    margin-bottom: 6px;
+}
+
+.section-description {
+    margin: 0 0 22px;
+
+    color: #718065;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+
+/* Один интервал */
+
+.time-interval {
+    position: relative;
+
+    display: flex;
+    align-items: flex-end;
+
+    gap: 15px;
+
+    margin-bottom: 15px;
+
+    padding: 18px 20px;
+
+    background: #f7fdea;
+
+    border-radius: 15px;
+}
+
+.time-field {
+    flex: 1;
+}
+
+.time-field label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #7a896d;
+    font-size: 14px;
+}
+
+.time-field input {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 12px 13px;
+
+    border: 1px solid #d9e8c4;
+    border-radius: 10px;
+
+    background: white;
+    color: #374a2e;
+
+    font-size: 16px;
+}
+
+.time-field input:focus {
+    outline: none;
+
+    border-color: #98c45d;
+
+    box-shadow: 0 0 7px rgba(152, 196, 93, .20);
+}
+
+.time-separator {
+    padding-bottom: 11px;
+
+    color: #7a896d;
+    font-size: 20px;
+}
+
+
+/* Удалить интервал */
+.remove-interval-btn {
+    width: 30px;
+    height: 30px;
+
+    margin-bottom: 7px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #eef3e5;
+    color: #718065;
+
+    font-size: 22px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.remove-interval-btn:hover {
+    background: #f5d8d8;
+    color: #a05b5b;
+}
+
+
+/* ==========================================
+   Добавить интервал
+   ========================================== */
+
+.add-interval-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 10px;
+
+    border: none;
+    background: none;
+
+    color: #66854a;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.add-interval-btn:hover {
+    color: #8aae55;
+}
+
+.plus-icon {
+    font-size: 21px;
+    font-weight: normal;
+}
+
+
+/* ==========================================
+   Кнопки
+   ========================================== */
+
+.schedule-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 40px;
+    padding-top: 30px;
+
+    border-top: 1px solid #edf3e6;
+}
+
+.save-schedule-btn {
+    border: none;
+
+    background: #d8f0a8;
+    color: #425d28;
+
+    padding: 14px 32px;
+
+    border-radius: 30px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .25s;
+}
+
+.save-schedule-btn:hover {
+    background: #c8e88d;
+    transform: translateY(-2px);
+}
+
+.view-schedule-btn {
+    color: #66854a;
+
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    transition: .2s;
+}
+
+.view-schedule-btn:hover {
+    color: #8aae55;
+}
+
+
+/* ==========================================
+   Телефон
+   ========================================== */
+
+@media (max-width: 700px) {
+
+    .schedule-page {
+        margin-top: 30px;
+    }
+
+    .schedule-title h1 {
+        font-size: 34px;
+    }
+
+    .schedule-card {
+        padding: 25px;
+    }
+
+    .time-interval {
+        gap: 10px;
+        padding: 15px;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .time-interval {
+        flex-wrap: wrap;
+    }
+
+    .time-field {
+        min-width: 120px;
+    }
+
+    .time-separator {
+        display: none;
+    }
+
+    .remove-interval-btn {
+        margin-left: auto;
+    }
+
+}

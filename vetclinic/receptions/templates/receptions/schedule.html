@@ -1,0 +1,378 @@
+{% extends "vetclinic/base.html" %}
+{% load static %}
+
+{% block title %}Расписание врачей{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/schedule.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="schedule-page">
+
+    <!-- ========================================= -->
+    <!-- Заголовок и кнопки -->
+    <!-- ========================================= -->
+
+    <div class="schedule-header">
+        
+        {% if request.user.is_superuser %}
+        <h1>Расписание врачей</h1>
+            <div class="schedule-header-actions">
+
+                <a href="{% url 'receptions:create' %}" class="schedule-add-btn">
+                    + Добавить расписание
+                </a>
+
+                <a href="#" class="schedule-edit-btn">
+                    Изменить расписание
+                </a>
+
+            </div>
+        {% else %}
+            <h2>
+                Выберите врача и доступное время для записи
+            </h2>
+        {% endif %}
+
+    </div>
+
+
+    <!-- ========================================= -->
+    <!-- Выбор врача -->
+    <!-- ========================================= -->
+
+    <section class="doctor-selection">
+
+        <label for="doctor-search">
+            Врач
+        </label>
+
+        <div class="doctor-select">
+
+            <form method="get">
+                {% if client_id %}
+                    <input type="hidden" name="client_id" value="{{ client_id }}">
+                    <input type="hidden" name="pet_id" value="{{ pet_id }}">
+                {% endif %}
+
+                <input type="text"
+                       id="doctor-search"
+                       class="doctor-search"
+                       placeholder="Начните вводить фамилию..."
+                       autocomplete="off"
+                       value="{% for doctor in doctors %}{% if doctor.id == selected_doctor_id %}{{ doctor.full_name }}{% endif %}{% endfor %}">
+
+                <input type="hidden"
+                       name="doctor"
+                       id="doctor-value"
+                       value="{{ selected_doctor_id }}">
+
+                <button type="button"
+                        class="doctor-select-arrow"
+                        onclick="toggleDoctorList()">
+                    ▾
+                </button>
+
+                <div class="doctor-list" id="doctor-list">
+
+                    {% for doctor in doctors %}
+
+                        <div class="doctor-option"
+                             data-value="{{ doctor.id }}"
+                             data-name="{{ doctor.full_name }}"
+                             onclick="selectDoctor(this)">
+
+                            {{ doctor.full_name }}
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- Ближайшее время -->
+    <!-- ========================================= -->
+
+    {% if selected_doctor_id %}
+
+        <div class="nearest-time">
+
+            <span class="nearest-label">
+                Ближайшее время для записи:
+            </span>
+
+            <span class="nearest-value">
+                {% if nearest_slot %}
+                    {{ nearest_slot.date|date:"d.m.Y" }} в {{ nearest_slot.start|time:"H:i" }}
+                {% else %}
+                    Нет доступного времени
+                {% endif %}
+            </span>
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- ========================================= -->
+    <!-- Календарь -->
+    <!-- ========================================= -->
+
+    {% if selected_doctor_id %}
+
+        <section class="schedule-calendar">
+
+            <!-- ---------- Месяц ---------- -->
+
+            <div class="calendar-month">
+
+                <a href="?doctor={{ selected_doctor_id }}&year={{ prev_year }}&month={{ prev_month }}&client_id={{ client_id }}&pet_id={{ pet_id }}"
+                   class="calendar-arrow">
+                    ←
+                </a>
+
+                <h2>
+                    {{ month_name }}
+                </h2>
+
+                <a href="?doctor={{ selected_doctor_id }}&year={{ next_year }}&month={{ next_month }}&client_id={{ client_id }}&pet_id={{ pet_id }}"
+                   class="calendar-arrow">
+                    →
+                </a>
+
+            </div>
+
+
+            <!-- ---------- Дни недели ---------- -->
+
+            <div class="week-days">
+
+                <span>ПН</span>
+                <span>ВТ</span>
+                <span>СР</span>
+                <span>ЧТ</span>
+                <span>ПТ</span>
+                <span>СБ</span>
+                <span>ВС</span>
+
+            </div>
+
+
+            <!-- ---------- Даты ---------- -->
+
+            <div class="calendar-dates">
+                {% for week in month_matrix %}
+                    {% for day in week %}
+
+                        {% if day.month == month %}
+                            <a href="?doctor={{ selected_doctor_id }}&year={{ year }}&month={{ month }}&date={{ day|date:'Y-m-d' }}&client_id={{ client_id }}&pet_id={{ pet_id }}"
+                            class="calendar-date
+                            {% if day.day == today_day %} today {% endif %}
+                            {% if selected_date and day == selected_date %} selected {% endif %}
+
+                            {% if request.user.is_superuser %}
+
+                                {% if day.day in working_days %}
+                                    has-schedule
+                                {% endif %}
+
+                            {% else %}
+
+                                {% if day.day in working_days and day.day not in available_days %}
+                                    no-available-slots
+                                {% endif %}
+
+                                {% if day.day in available_days %}
+                                    has-available-slots
+                                {% endif %}
+
+                            {% endif %}">
+
+                                <span class="date-number">{{ day.day }}</span>
+
+                            </a>
+
+                        {% else %}
+
+                            <div class="calendar-date other-month">
+                                {{ day.day }}
+                            </div>
+
+                        {% endif %}
+
+                    {% endfor %}
+                {% endfor %}
+            </div>
+
+
+            <!-- ================================= -->
+            <!-- Слоты выбранного дня -->
+            <!-- ================================= -->
+
+            {% if selected_date %}
+
+                <div class="day-slots">
+
+                    <div class="day-slots-header">
+
+                        <h3>
+                            {{ selected_date|date:"j E" }}
+                        </h3>
+
+                        <p>
+                            Время работы врача
+                        </p>
+
+                    </div>
+
+
+                    <div class="slots-list">
+
+                    {% if request.user.is_superuser %}
+
+                        {% for slot in slots %}
+                            {% if client_id and client_id != 'None' %}
+                            <!-- Путь 3: Клиент уже выбран, шлем админа сразу на подтверждение -->
+                                <a href="{% url 'receptions:confirm_booking' %}?slot_id={{ slot.id }}&client_id={{ client_id }}&pet_id={{ pet_id }}"
+                                class="time-slot {% if slot.is_available %} available {% else %} unavailable {% endif %}">
+                                    <span class="slot-dot"></span>
+                                    <span class="slot-time">{{ slot.start|time:"H:i" }}</span>
+                                </a>
+                            {% else %}
+                                <!-- Путь 2: Клиент не выбран, шлем админа на страницу выбора клиента -->
+                                <a href="{% url 'receptions:select_client' %}?slot_id={{ slot.id }}"
+                                class="time-slot {% if slot.is_available %} available {% else %} unavailable {% endif %}">
+                                    <span class="slot-dot"></span>
+                                    <span class="slot-time">{{ slot.start|time:"H:i" }}</span>
+                                </a>
+                            {% endif %}
+                        {% empty %}
+                            <p>Нет слотов на этот день.</p>
+                        {% endfor %}
+
+                    {% else %}
+                        
+                        <!-- Обычный пользователь (Путь 1) -->
+                        {% for slot in slots %}
+                            <a href="{% url 'receptions:confirm_booking' %}?slot_id={{ slot.id }}"
+                            class="time-slot {% if slot.is_available %} available {% else %} unavailable {% endif %}">
+                                <span class="slot-dot"></span>
+                                <span class="slot-time">{{ slot.start|time:"H:i" }}</span>
+                            </a>
+                        {% empty %}
+                            <p>Нет доступных слотов для записи.</p>
+                        {% endfor %}
+
+                    {% endif %}
+                    
+                    </div>
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    {% endif %}
+
+    <!-- ЛЕГЕНДА -->
+     <div class="schedule-legend">
+
+    {% if request.user.is_superuser %}
+
+        <span>
+            <i class="legend-dot available"></i>
+            Доступно
+        </span>
+
+        <span>
+            <i class="legend-dot unavailable"></i>
+            Недоступно
+        </span>
+
+        <span>
+            <i class="legend-dot working-day"></i>
+            Есть расписание
+        </span>
+
+    {% else %}
+
+        <span>
+            <i class="legend-dot has-available"></i>
+            Есть свободное время
+        </span>
+
+        <span>
+            <i class="legend-dot no-available"></i>
+            Свободного времени нет
+        </span>
+
+    {% endif %}
+
+</div>
+
+</div>
+
+
+<!-- ========================================= -->
+<!-- JavaScript -->
+<!-- ========================================= -->
+
+<script>
+    const doctorSearch = document.getElementById('doctor-search');
+    const doctorList = document.getElementById('doctor-list');
+    const doctorValue = document.getElementById('doctor-value');
+
+    function toggleDoctorList() {
+        doctorList.classList.toggle('show');
+        doctorSearch.focus();
+    }
+
+    function selectDoctor(option) {
+        doctorSearch.value = option.dataset.name;
+        doctorValue.value = option.dataset.value;
+
+        const form = doctorSearch.closest('form');
+        form.submit();
+    }
+
+    doctorSearch.addEventListener('focus', function() {
+        doctorList.classList.add('show');
+    });
+
+    doctorSearch.addEventListener('input', function() {
+        const searchText = this.value.toLowerCase().trim();
+        const options = document.querySelectorAll('.doctor-option');
+
+        doctorList.classList.add('show');
+
+        options.forEach(function(option) {
+            const doctorName = option.dataset.name.toLowerCase();
+
+            if (doctorName.includes(searchText)) {
+                option.style.display = 'block';
+            } else {
+                option.style.display = 'none';
+            }
+        });
+    });
+
+    document.addEventListener('click', function(event) {
+        const doctorSelect = document.querySelector('.doctor-select');
+
+        if (!doctorSelect.contains(event.target)) {
+            doctorList.classList.remove('show');
+        }
+    });
+</script>
+
+{% endblock %}

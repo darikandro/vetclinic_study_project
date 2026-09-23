@@ -1,0 +1,39 @@
+{% extends "vetclinic/base.html" %}
+{% load static %}
+
+{% block title %}Вход{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="login-page">
+
+    <div class="login-card">
+
+        <h2>Вход в аккаунт</h2>
+
+        <form method="post" class="login-form">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit" class="login-button">
+                Войти
+            </button>
+        </form>
+
+        <p class="register-text">
+            Еще нет аккаунта?
+            <a href="{% url 'accounts:register' %}">
+                Зарегистрироваться
+            </a>
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "vetclinic/base.html" %}
+{% load static %}
+
+{% block title %}
+Услуги и цены
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pricelist.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="services-page">
+
+    <h1>Услуги и цены</h1>
+
+    {% if request.user.is_superuser %}
+        <div class="admin-service-actions">
+            <a href="create" class="admin-service-btn">
+                Добавить новую услугу
+            </a>
+
+            <a href="category/" class="admin-service-btn category-btn">
+                Посмотреть список категорий
+            </a>
+        </div>
+    {% endif %}
+
+    <div class="table-container">
+
+        <div class="category-filters">
+
+            <a href="?category=all"
+               class="filter-btn {% if selected_category_id == 'all' %}active{% endif %}">
+                Все услуги
+            </a>
+
+            {% for category in categories %}
+                <a href="?category={{ category.id }}"
+                   class="filter-btn {% if selected_category_id|add:0 == category.id %}active{% endif %}">
+                    {{ category.name }}
+                </a>
+            {% endfor %}
+
+        </div>
+
+        <table class="price-table">
+            <thead>
+                <tr>
+                    <th>Услуга</th>
+                    <th>Категория</th>
+                    <th>Стоимость, BYN</th>
+
+                    {% if request.user.is_superuser %}
+                        <th>Комментарий</th>
+                        <th>Действия</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for service in services %}
+                <tr>
+                    <td>{{ service.name }}</td>
+                    <td>{{ service.category }}</td>
+                    <td>{{ service.price }}</td>
+
+                    {% if request.user.is_superuser %}
+                        <td>{{ service.comment }}</td>
+                        <td class="service-actions">
+                            <a href="{% url 'pricelist:edit' service.id %}" class="service-edit-btn">
+                                Изменить
+                            </a>
+
+                            <a href="{% url 'pricelist:delete' service.id %}" class="service-delete-btn">
+                                Удалить
+                            </a>
+                        </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

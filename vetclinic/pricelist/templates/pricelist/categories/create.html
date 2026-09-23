@@ -1,0 +1,23 @@
+{% extends "vetclinic/base.html" %}
+{% load static %}
+
+{% block title %}
+Добавление категории услуг
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pricelist.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="form-card">
+        <h2>Добавить категорию услуг</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">
+                Добавить
+            </button>
+        </form>
+    </div>
+{% endblock %}

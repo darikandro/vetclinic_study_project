@@ -1,0 +1,355 @@
+.appointments-page {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 0 25px;
+}
+
+.appointments-page h1 {
+    margin: 0 0 30px;
+    text-align: center;
+    color: #5b7d33;
+    font-size: 40px;
+}
+
+
+/* Вкладки */
+
+.appointments-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.appointment-tab {
+    padding: 12px 22px;
+    border-radius: 20px;
+    background: #f0f3ec;
+    color: #68775b;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.appointment-tab:hover {
+    background: #e4edd8;
+    color: #4e6a33;
+}
+
+.appointment-tab.active {
+    background: #d8f0a8;
+    color: #425d28;
+}
+
+.appointment-tab.active:hover {
+    background: #c8e88d;
+}
+
+
+/* Общая секция */
+
+.appointments-section {
+    background: white;
+    border-radius: 22px;
+    padding: 30px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
+}
+
+
+/* Предстоящие записи */
+
+.upcoming-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.upcoming-card {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 20px;
+    border-radius: 16px;
+    background: #f9fff8;
+    border: 1px solid #edf3e6;
+}
+
+.upcoming-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 75px;
+    height: 75px;
+    flex-shrink: 0;
+    border-radius: 16px;
+    background: #eef9d4;
+    color: #5b7d33;
+}
+
+.date-day {
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.date-month {
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+.upcoming-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.upcoming-row {
+    margin-bottom: 7px;
+    color: #374a2e;
+    font-size: 15px;
+}
+
+.upcoming-row:last-child {
+    margin-bottom: 0;
+}
+
+.upcoming-label {
+    margin-right: 6px;
+    color: #4e613f;
+    font-weight: bold;
+}
+
+.appointment-details-btn {
+    flex-shrink: 0;
+    padding: 9px 15px;
+    border-radius: 10px;
+    background: #d8f0a8;
+    color: #425d28;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.appointment-details-btn:hover {
+    background: #c8e88d;
+    transform: translateY(-1px);
+}
+
+
+/* Фильтр истории */
+
+.history-filter {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.history-filter label {
+    color: #4e613f;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.history-filter select {
+    min-width: 220px;
+    padding: 10px 13px;
+    border: 1px solid #d9e8c4;
+    border-radius: 11px;
+    background: white;
+    color: #374a2e;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.history-filter select:focus {
+    outline: none;
+    border-color: #98c45d;
+    box-shadow: 0 0 8px rgba(152, 196, 93, .25);
+}
+
+
+/* Таблица истории */
+
+.history-table-wrapper {
+    overflow-x: auto;
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #374a2e;
+    font-size: 15px;
+}
+
+.history-table th {
+    padding: 13px 12px;
+    background: #f4f8ed;
+    color: #4e613f;
+    font-weight: bold;
+    text-align: left;
+    border-bottom: 1px solid #dfead2;
+}
+
+.history-table th:first-child {
+    border-radius: 10px 0 0 10px;
+}
+
+.history-table th:last-child {
+    border-radius: 0 10px 10px 0;
+}
+
+.history-table td {
+    padding: 15px 12px;
+    border-bottom: 1px solid #edf3e6;
+    vertical-align: middle;
+}
+
+.history-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.history-table tbody tr:hover {
+    background: #fbfdf8;
+}
+
+.conclusion-cell {
+    max-width: 300px;
+    color: #68775b;
+}
+
+.history-action {
+    text-align: center;
+    white-space: nowrap;
+}
+
+.history-details-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px;
+    border-radius: 10px;
+    background: #fff2b5;
+    color: #5f5b2d;
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.history-details-btn:hover {
+    background: #ffe995;
+    transform: translateY(-1px);
+}
+
+
+/* Пустое состояние */
+.empty-appointments {
+    padding: 50px 25px;
+    text-align: center;
+    color: #718065;
+}
+
+.empty-icon {
+    margin-bottom: 12px;
+    font-size: 35px;
+}
+
+.empty-appointments p {
+    margin: 0;
+    font-size: 16px;
+}
+
+
+/* Мобильная версия */
+
+@media (max-width: 750px) {
+
+    .appointments-page {
+        margin-top: 30px;
+    }
+
+    .appointments-page h1 {
+        font-size: 34px;
+    }
+
+    .appointments-tabs {
+        flex-direction: column;
+    }
+
+    .appointment-tab {
+        text-align: center;
+    }
+
+    .appointments-section {
+        padding: 20px;
+    }
+
+    .upcoming-card {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .upcoming-info {
+        width: calc(100% - 100px);
+    }
+
+    .appointment-details-btn {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    .history-filter {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .history-filter select {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .appointments-page {
+        padding: 0 15px;
+    }
+
+    .appointments-page h1 {
+        font-size: 29px;
+    }
+
+    .upcoming-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .upcoming-date {
+        width: 75px;
+    }
+
+    .upcoming-info {
+        width: 100%;
+    }
+
+    .history-table {
+        min-width: 700px;
+    }
+}
+.appointment-tab {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.appointment-tab-content {
+    display: none;
+}
+
+.appointment-tab-content.active {
+    display: block;
+}
